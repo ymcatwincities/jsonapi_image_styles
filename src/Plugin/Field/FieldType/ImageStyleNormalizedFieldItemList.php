@@ -18,30 +18,26 @@ class ImageStyleNormalizedFieldItemList extends FieldItemList {
    * {@inheritdoc}
    */
   protected function computeValue() {
+    $config = \Drupal::config('jsonapi_image_styles.settings');
+    $styles = [];
     $entity = $this->getEntity();
     $uri = ($entity instanceof File) ? $entity->getFileUri() : FALSE;
-    if (!$entity->id() || !$uri) {
-      return;
+
+    $defined_styles = ($config->get('image_styles')) ? $config->get('image_styles') : [];
+    if (!empty(array_filter($defined_styles))) {
+      foreach ($defined_styles as $key) {
+        $styles[$key] = ImageStyle::load($key);
+      }
+    }
+    else {
+      $styles = ImageStyle::loadMultiple();
     }
 
     $offset = 0;
-    // @TODO: Make it a configuration option to define image styles to expose.
-    $styles = [
-      'large',
-      'thumbnail',
-    ];
-
-    foreach ($styles as $style) {
-
-      $image_style = ImageStyle::load($style);
-      $url = ($image_style instanceof ImageStyle) ? $image_style->buildUrl($uri) : $url = file_create_url($uri);
-
-      $this->list[] = $this->createItem(
-        $offset,
-        [
-          'url' => [$style => $url],
-        ]
-      );
+    foreach ($styles as $name => $style) {
+      if ($style instanceof ImageStyle) {
+        $this->list[] = $this->createItem($offset, ['url' => [$name => $style->buildUrl($uri)]]);
+      }
       $offset++;
     }
   }
