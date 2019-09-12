@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\jsonapi_image_styles\Form\JsonApiImageStylesAdminForm.
- */
 
 namespace Drupal\jsonapi_image_styles\Form;
 
@@ -10,20 +6,30 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\image\Entity\ImageStyle;
 
+/**
+ * Class JsonApiImageStylesAdminForm.
+ */
 class JsonApiImageStylesAdminForm extends ConfigFormBase {
+
   /**
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
     return [
-      'jsonapi_image_styles.settings'
+      'jsonapi_image_styles.settings',
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormId() {
     return 'jsonapi_image_styles_admin_form';
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('jsonapi_image_styles.settings');
 
@@ -36,7 +42,7 @@ class JsonApiImageStylesAdminForm extends ConfigFormBase {
     $form['image_styles'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Image styles'),
-      '#description' => $this->t('Select image styles to expose for JSON:API. If none are selected, all styles are exposed. '),
+      '#description' => $this->t('Select image styles to expose for JSON:API. If none are selected, all styles are exposed.'),
       '#options' => $options,
       '#default_value' => (is_array($config->get('image_styles'))) ? $config->get('image_styles') : [],
     ];
@@ -44,6 +50,9 @@ class JsonApiImageStylesAdminForm extends ConfigFormBase {
     return parent::buildForm($form, $form_state);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
 
@@ -51,4 +60,5 @@ class JsonApiImageStylesAdminForm extends ConfigFormBase {
       ->set('image_styles', $form_state->getValue('image_styles'))
       ->save();
   }
+
 }
