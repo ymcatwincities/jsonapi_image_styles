@@ -1,7 +1,7 @@
 INTRODUCTION
 ------------
 
-JSON:API image styles is a JSON:API extension that exposes image style urls of a
+JSON:API Image Styles is a JSON:API extension that exposes image style urls of a
 drupal image to jsonapi export. This allows e.g. crop-defined image styles to be
 consumed by frontend builds.
 
@@ -27,7 +27,7 @@ CONFIGURATION
 -------------
 
  * Configure the image styles you wish to expose in Administration »
- Configuration » Web Services » JSON:API Image styles
+ Configuration » Web Services » JSON:API Image Styles
  (/admin/config/services/jsonapi/image_styles)
 
    - Select the image styles you wish to expose for JSON:API
