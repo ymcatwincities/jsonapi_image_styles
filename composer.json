@@ -1,0 +1,13 @@
+{
+  "name": "ymcatwincities/jsonapi_image_styles",
+  "description": "Fork of jsonapi_image_styles.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/jsonapi_image_styles",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/jsonapi_image_styles",
+    "source": "https://www.drupal.org/project/jsonapi_image_styles"
+  }
+}
